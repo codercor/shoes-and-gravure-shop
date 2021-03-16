@@ -1,0 +1,12 @@
+@import url("https://fonts.googleapis.com/css2?family=Indie+Flower&family=Sansita+Swashed:wght@300;500;900&display=swap");
+.main-title {
+  font-family: "Sansita Swashed", cursive;
+}
+.elite-paragraph {
+  font-family: "Sansita Swashed", cursive;
+}
+.prix-text {
+  font-family: "Sansita Swashed", cursive;
+  font-weight: 100;
+  font-size: 15px;
+}

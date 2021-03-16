@@ -1,0 +1,10 @@
+{  "tokens": {
+        "access": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZmRmMmM5ZjkwNzE2ZDIyZDA3MTQ4MzQiLCJpYXQiOjE2MDg0NjE2NjksImV4cCI6MTYwODQ2MzQ2OSwidHlwZSI6ImFjY2VzcyJ9.cBQLurdAmnNqx1P6liaoDg7fvTcHPLDxPeCdZXKzf3k",
+            "expires": "2020-12-20T11:24:29.977Z"
+        },
+        "refresh": {
+            "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI1ZmRmMmM5ZjkwNzE2ZDIyZDA3MTQ4MzQiLCJpYXQiOjE2MDg0NjE2NjksImV4cCI6MTYxMTA1MzY2OSwidHlwZSI6InJlZnJlc2gifQ.BJI3KhM2GveEVApNFt3xq1lqpHbb2vWqHq1KNMHe7VU",
+            "expires": "2021-01-19T10:54:29.977Z"
+        }
+    }}

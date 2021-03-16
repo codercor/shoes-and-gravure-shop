@@ -1,0 +1,8 @@
+{
+  "name": "mevnstack",
+  "template": "Default",
+  "isConfigured": {
+    "client": false,
+    "server": false
+  }
+}
