@@ -1,5 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
+
+import createPersistedState from "vuex-persistedstate";
+
+
+
 Vue.use(Vuex);
 const app = {
   state: {
@@ -49,6 +54,10 @@ const app = {
     },
   },
   mutations: {
+    
+    deleteOrderFromCart(state,index) {
+      state.cart.splice(index, 1);
+    },
     editGravure(state, editedGravure) {
       //carttan alıp kaydedicek
     },
@@ -160,7 +169,9 @@ const panel = {
     }
   },
 };
+
 const store = new Vuex.Store({
+  plugins:[createPersistedState({paths:['app.cart']})],
   modules: {
     app,
     panel,

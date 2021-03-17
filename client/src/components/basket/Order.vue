@@ -67,21 +67,14 @@ export default {
   },
   methods: {
     deleteOrder(index) {
-      let storageGravures = JSON.parse(localStorage.getItem("savedGravures"));
-      storageGravures.splice(index, 1);
-      console.log(index, storageGravures);
-      this.$store.state.savedGravures = storageGravures;
-      this.$store.commit("updateCartForGravures", true);
-      storageGravures = JSON.stringify(storageGravures);
-      console.log(this.$store.getters.getCart);
-      localStorage.setItem("savedGravures", storageGravures);
+      this.$store.commit("deleteOrderFromCart", index);
     },
-    setAmmount(isPlus) {
+    setAmmount(isPlus, index) {
       if (isPlus) {
-        this.data.amount++;
+        this.$store.commit("increaseAmount", this.index);
       } else {
         if (this.data.amount > 0) {
-          this.data.amount--;
+          this.$store.commit("decreaseAmount", this.index);
         }
       }
     },
