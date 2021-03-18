@@ -12,21 +12,21 @@
                 <v-select
                   solo
                   :items="fontFamilies"
-                  v-model="$store.state.fonts.firstLine.font"
+                  v-model="$store.state.app.fonts.firstLine.font"
                 ></v-select>
               </v-col>
               <v-col cols="6">
                 <v-text-field
                   type="number"
                   solo
-                  v-model="$store.state.fonts.firstLine.size"
+                  v-model="$store.state.app.fonts.firstLine.size"
                 >
                 </v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   :counter="counter"
-                  v-model="$store.state.usedTexts.first"
+                  v-model="$store.state.app.usedTexts.first"
                 >
                 </v-text-field>
               </v-col>
@@ -42,21 +42,21 @@
                 <v-select
                   solo
                   :items="fontFamilies"
-                  v-model="$store.state.fonts.secondLine.font"
+                  v-model="$store.state.app.fonts.secondLine.font"
                 ></v-select>
               </v-col>
               <v-col cols="6">
                 <v-text-field
                   type="number"
                   solo
-                  v-model="$store.state.fonts.secondLine.size"
+                  v-model="$store.state.app.fonts.secondLine.size"
                 >
                 </v-text-field>
               </v-col>
               <v-col cols="12">
                 <v-text-field
                   counter="10"
-                  v-model="$store.state.usedTexts.second"
+                  v-model="$store.state.app.usedTexts.second"
                 >
                 </v-text-field>
               </v-col>
@@ -72,19 +72,19 @@
                 <v-select
                   solo
                   :items="fontFamilies"
-                  v-model="$store.state.fonts.thirdLine.font"
+                  v-model="$store.state.app.fonts.thirdLine.font"
                 ></v-select>
               </v-col>
               <v-col cols="6">
                 <v-text-field
                   type="number"
                   solo
-                  v-model="$store.state.fonts.thirdLine.size"
+                  v-model="$store.state.app.fonts.thirdLine.size"
                 >
                 </v-text-field>
               </v-col>
               <v-col cols="12">
-                <v-text-field v-model="$store.state.usedTexts.third">
+                <v-text-field v-model="$store.state.app.usedTexts.third">
                 </v-text-field>
               </v-col>
             </v-row>
@@ -99,18 +99,18 @@
 export default {
   data() {
     return {
-      fontFamilies: ["Times New Roman", "Arial Black", "Comic Sans MS"]
+      fontFamilies: ["Times New Roman", "Arial Black", "Comic Sans MS"],
     };
   },
   computed: {
     counter() {
-      let fontSize = this.$store.state.fonts.firstLine.size;
+      let fontSize = this.$store.state.app.fonts.firstLine.size;
       let counter = 0;
       if (fontSize <= 30 && fontSize > 25) counter = 20;
       if (fontSize <= 40 && fontSize > 30) counter = 15;
       return counter;
-    }
-  }
+    },
+  },
 };
 </script>
 

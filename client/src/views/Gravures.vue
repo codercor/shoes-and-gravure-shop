@@ -68,14 +68,14 @@ export default {
         usedTexts: {
           first: "First Text",
           second: "Second Text",
-          third: "Third Text"
+          third: "Third Text",
         },
         fonts: {
           firstLine: { font: "Times New Roman", size: 40 },
           secondLine: { font: "Comic Sans MS", size: 35 },
-          thirdLine: { font: "Arial Black", size: 30 }
-        }
-      }
+          thirdLine: { font: "Arial Black", size: 30 },
+        },
+      },
     };
   },
   components: {
@@ -83,7 +83,7 @@ export default {
     ColorPicker,
     SetTexts,
     SelectSizes,
-    Preview
+    Preview,
   },
   computed: {
     ...mapGetters([
@@ -93,8 +93,9 @@ export default {
       "getFonts",
       "getUsedTexts",
       "getSelectedGravureData",
-      "getCart"
-    ])
+      "getCart",
+      "getGravureDataAll",
+    ]),
   },
   beforeMount() {
     if (this.$route.params.id) {
@@ -103,8 +104,6 @@ export default {
     } else {
       this.isEdit = false;
       this.setUsingGravure(this.initialState);
-      console.log("localstorage'dan getirilecek");
-      this.getSavedGravures();
     }
 
     console.log(this.isEdit);
@@ -114,46 +113,27 @@ export default {
     getSavedGravure(id) {
       //parametreden id'yi alıyor ve o id'yw sahip olan gravürü ekranda kullanılan gravür olarak atıyor
       if (id) {
-        let selectedSavedGravure = this.$store.state.savedGravures[id];
-
-        if (typeof selectedSavedGravure == "undefined") {
-          this.$store.state.savedGravures = this.getSavedGravuresFromStorage();
-          selectedSavedGravure = this.$store.state.savedGravures[id];
-        }
-        console.log(selectedSavedGravure);
+        let selectedSavedGravure = this.getCart.filter(
+          (item) => item.id == id
+        )[0].properties;
         this.setUsingGravure(selectedSavedGravure);
       }
     },
     setUsingGravure(gravure) {
       console.log("sett", gravure);
       let { commit } = this.$store;
-      commit("selectGravure", gravure.selectedGravure);
-      commit("selectColor", gravure.selectedColor);
-      commit("selectSize", gravure.selectedSize);
-      this.$store.state.usedTexts = gravure.usedTexts;
-      this.$store.state.fonts = gravure.fonts;
+      commit("setUsingGravure", gravure);
     },
     saveGravure() {
-      //bu fonksiyon ekranda yapılmış olan gravürü kaydediyor
+      //bu fonksiyon ekranda yapılmış olan gravürü cart'a kaydediyor.
       let copyGravure = {
         selectedGravure: this.getSelectedGravure,
         selectedColor: this.getSelectedColor,
         selectedSize: this.getSelectedSize,
         usedTexts: this.getUsedTexts,
-        fonts: this.getFonts
+        fonts: this.getFonts,
       };
-      console.log(copyGravure);
       this.$store.commit("saveGravure", copyGravure);
-      this.$store.commit("updateCartForGravures", false);
-      this.saveGravureToStorage(copyGravure);
-      setTimeout(() => {
-        this.$router
-          .push("/gravures/" + (this.getCart.length - 1).toString())
-          .catch(x => {
-            console.log("/gravures/" + (this.getCart.length - 1).toString());
-          });
-        this.showNotification();
-      }, 200);
     },
     showNotification(isBuy = true) {
       if (isBuy)
@@ -164,37 +144,16 @@ export default {
       this.$store.state.isShowNotification = true;
     },
     editGravure() {
-      //kayıtlı gravürler içerisinden düzenlenen gravürü günceller
-      let savedGravures = this.getSavedGravuresFromStorage();
-      let copyGravure = {
-        selectedGravure: this.getSelectedGravure,
-        selectedColor: this.getSelectedColor,
-        selectedSize: this.getSelectedSize,
-        usedTexts: this.getUsedTexts,
-        fonts: this.getFonts
-      };
-      savedGravures[this.$route.params.id] = copyGravure;
+      let properties = this.getGravureDataAll;
       this.$store.commit("editGravure", {
         id: this.$route.params.id,
-        gravure: copyGravure
+        properties,
       });
-      this.$store.commit("updateCartForGravures", true);
-      localStorage.setItem("savedGravures", JSON.stringify(savedGravures));
-      this.showNotification(false);
     },
-    saveGravureToStorage(data) {
-      if (localStorage.getItem("savedGravures")) {
-        let savedGravures = JSON.parse(localStorage.getItem("savedGravures"));
-        savedGravures.push(data);
-        localStorage.setItem("savedGravures", JSON.stringify(savedGravures));
-      } else {
-        localStorage.setItem("savedGravures", JSON.stringify([data]));
-      }
-    }
   },
   watch: {
     //urldeki id parametresinin değişimi izler ve o id'ye sahip olan gravürü getirir.
-    "$route.params.id": function() {
+    "$route.params.id": function () {
       if (this.$route.params.id) {
         this.isEdit = true;
         this.getSavedGravure(this.$route.params.id);
@@ -203,8 +162,8 @@ export default {
         this.isEdit = false;
       }
       console.log(this.isEdit);
-    }
-  }
+    },
+  },
 };
 </script>
 

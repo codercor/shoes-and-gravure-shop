@@ -40,7 +40,7 @@
             </v-btn>
             <div v-if="type == 'gravure'">
               <v-btn
-                @click="$router.push('/gravures/' + data.index)"
+                @click="$router.push('/gravures/' + data.id)"
                 color="primary"
                 >Edit gravure</v-btn
               >

@@ -1,6 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+import uuid from 'uuid';
+
 import createPersistedState from "vuex-persistedstate";
 
 
@@ -54,12 +56,28 @@ const app = {
     },
   },
   mutations: {
-    
+    saveGravure(state,data) {
+      let order = {
+        properties: data,
+        title: "Gravure",
+        price: 90,
+        image: "https://media.istockphoto.com/illustrations/gravure-of-antoine-lavoisier-illustration-id508646187?s=612x612",
+        type: "gravure",
+        amount: 1,
+        id:uuid()
+      }
+   
+      state.cart.push(order)
+    },
     deleteOrderFromCart(state,index) {
       state.cart.splice(index, 1);
     },
-    editGravure(state, editedGravure) {
-      //carttan alıp kaydedicek
+    editGravure(state, {id,properties}) {
+      state.cart.forEach((item) => {
+        if (item.id == id) {
+          item.properties = properties;
+        }
+      })
     },
     selectGravure(state, name) {
       state.selectedGravure = name;
@@ -69,6 +87,14 @@ const app = {
     },
     selectSize(state, size) {
       state.selectedSize = size;
+    },
+    setUsingGravure(state, payload) {
+      console.log(payload);
+      state.selectedColor = payload.selectedColor;
+      state.selectedSize = payload.selectedSize;
+      state.selectedGravure = payload.selectedGravure
+      state.usedTexts = payload.usedTexts;
+      state.fonts = payload.fonts;
     },
     addItemToCart(state, data) {
       state.cart.push(data);
@@ -119,6 +145,15 @@ const app = {
     getFonts(state) {
       return state.fonts;
     },
+    getGravureDataAll(state) {
+      return {
+        selectedSize: state.selectedSize,
+        usedTexts: state.usedTexts,
+        fonts: state.fonts,
+        selectedColor: state.selectedColor,
+        selecetdGravure:state.selectedGravure
+      }
+    }
   },
 };
 const panel = {
