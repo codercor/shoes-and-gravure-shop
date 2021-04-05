@@ -56,14 +56,15 @@
 </template>
 
 <script>
+import { mapGetters } from "vuex";
 import DropdownColorPicker from "../basket/DropdownColorPicker.vue";
 export default {
   props: ["type", "data", "index"],
   components: {
     DropdownColorPicker,
   },
-  data() {
-    return {};
+  computed: {
+    ...mapGetters(["getAllGravures"]),
   },
   methods: {
     deleteOrder(index) {
@@ -73,9 +74,7 @@ export default {
       if (isPlus) {
         this.$store.commit("increaseAmount", this.index);
       } else {
-        if (this.data.amount > 0) {
-          this.$store.commit("decreaseAmount", this.index);
-        }
+        this.$store.dispatch("decreaseAmount", this.index);
       }
     },
   },

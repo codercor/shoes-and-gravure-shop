@@ -29,15 +29,6 @@
                 Buy
                 <v-icon right> mdi-cart </v-icon>
               </v-btn>
-              <v-btn
-                v-if="this.isEdit"
-                @click="editGravure"
-                color="blue"
-                class="ma-2 buy-btn white--text"
-              >
-                Edit
-                <v-icon right> mdi-pen </v-icon>
-              </v-btn>
             </v-col>
           </v-row>
         </v-card>
